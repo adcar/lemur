@@ -1,19 +1,75 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-export default function App() {
+import Home from "./screens/Home";
+import All from "./screens/All";
+import MyCommunities from "./screens/MyCommunities";
+import Inbox from "./screens/Inbox";
+
+const Tab = createMaterialBottomTabNavigator();
+
+function MyTabs() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <Tab.Navigator
+      initialRouteName="Feed"
+      activeColor="white"
+      style={{ backgroundColor: "green" }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="All"
+        component={All}
+        options={{
+          tabBarLabel: "All",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="widgets" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="MyCommunities"
+        component={MyCommunities}
+        options={{
+          tabBarLabel: "My Communities",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-multiple"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Inbox"
+        component={Inbox}
+        options={{
+          tabBarLabel: "Inbox",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="email" color={color} size={26} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, AsyncStorage } from "react-native";
 import Toast from "react-native-easy-toast";
 import { TextInput, Button } from "react-native-paper";
+import { login } from "../api";
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
@@ -25,20 +26,7 @@ export default function Login({ navigation }: any) {
 
   async function handleSubmit() {
     try {
-      const res = await fetch(
-        "https://corsssssss.herokuapp.com/https://dev.lemmy.ml/api/v1/user/login",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username_or_email: username,
-            password: password,
-          }),
-        }
-      );
+      const res = await login(username, password);
 
       if (res.status !== 200) {
         showToast(await res.text());

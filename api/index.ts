@@ -1,9 +1,14 @@
 export const API_BASE =
   "https://corsssssss.herokuapp.com/https://dev.lemmy.ml/api/v1";
 
-export async function getPosts(jwt: string, type = "Subscribed", sort = "Hot") {
+export async function getPosts(
+  jwt: string,
+  type = "Subscribed",
+  page = 1,
+  sort = "Hot"
+) {
   const res = await fetch(
-    API_BASE + `/post/list?type_=${type}&sort=${sort}&auth=${jwt}`
+    API_BASE + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`
   );
   return (await res.json()).posts;
 }

@@ -1,24 +1,69 @@
 import * as React from "react";
-import { AsyncStorage, Button, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { AsyncStorage, Text, View, FlatList } from "react-native";
 import { getPosts } from "../api";
-import { useEffect } from "react";
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen() {
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [jwt, setJwt] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     (async () => {
-      const jwt = await AsyncStorage.getItem("jwt");
-      if (jwt !== null) {
-        const posts = await getPosts(jwt);
-        console.log(posts);
+      const newJwt = await AsyncStorage.getItem("jwt");
+      if (newJwt !== null) {
+        console.log(newJwt);
+        setJwt(newJwt);
+      }
+
+      if (newJwt !== null) {
+        const posts = await getPosts(newJwt, "Subscribed", page);
+        setPosts(posts);
       }
     })();
-  });
+  }, []);
+
+  function onLoadMore() {
+    console.log("Load more");
+
+    if (jwt !== "" && !loading) {
+      setLoading(true);
+      getPosts(jwt, "Subscribed", page + 1).then((newPosts) => {
+        // @ts-ignore
+        setPosts(posts.concat(newPosts));
+        setPage(page + 1);
+        setLoading(false);
+      });
+    }
+  }
+
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Text>Just communities youre subscribed to </Text>
-      <Button
-        title="Go to Other"
-        onPress={() => navigation.navigate("Other")}
+      <FlatList
+        data={posts}
+        extraData={loading}
+        renderItem={({ item }: any) => {
+          return (
+            <Text
+              style={{
+                height: 200,
+                width: "100vw",
+              }}
+            >
+              {item.name}
+            </Text>
+          );
+        }}
+        refreshing={true}
+        onEndReachedThreshold={0.99}
+        onEndReached={onLoadMore}
       />
     </View>
   );

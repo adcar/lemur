@@ -1,13 +1,14 @@
 import * as React from "react";
-import { Button, View } from "react-native";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Tabs from "./Tabs";
 
 // TODO: Delete this
-function NotificationsScreen({ navigation }: any) {
+function NotificationsScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
+      <Text>Hello</Text>
     </View>
   );
 }

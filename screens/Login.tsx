@@ -68,6 +68,7 @@ export default function Login({ navigation }: any) {
         returnKeyType="next"
         label={"Username"}
         value={username}
+        placeholderTextColor="#D50000"
         onChangeText={setUsername}
         onSubmitEditing={() => {
           if (passwordRef !== null) {

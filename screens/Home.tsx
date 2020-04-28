@@ -2,9 +2,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { AsyncStorage, View, FlatList } from "react-native";
 import { getPosts } from "../api";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: any) {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [jwt, setJwt] = useState("");
@@ -38,7 +38,6 @@ export default function HomeScreen() {
     }
   }
 
-
   return (
     <View
       style={{
@@ -48,6 +47,19 @@ export default function HomeScreen() {
       }}
     >
       <Text>Just communities youre subscribed to </Text>
+      <Button
+        mode="contained"
+        onPress={async () => {
+          await AsyncStorage.removeItem("jwt");
+          navigation.navigate("Login");
+        }}
+        style={{
+          height: 50,
+          width: 200,
+        }}
+      >
+        Logout
+      </Button>
       <FlatList
         contentContainerStyle={{}}
         data={posts}

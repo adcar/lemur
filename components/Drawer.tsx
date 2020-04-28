@@ -24,7 +24,10 @@ function MyDrawer({ navigation, theme }: any) {
       <Appbar navigation={navigation} />
       <Drawer.Navigator
         initialRouteName="Home"
-        drawerStyle={{ backgroundColor: colors.background }}
+        drawerStyle={{
+          backgroundColor: colors.background,
+          position: "fixed",
+        }}
       >
         <Drawer.Screen name="Home" component={Tabs} />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />

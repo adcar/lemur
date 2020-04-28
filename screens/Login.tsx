@@ -55,7 +55,6 @@ export default function Login({ navigation }: any) {
       toast.current.show(message);
     }
   }
-  console.log("aa");
   return (
     <View
       style={{

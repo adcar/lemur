@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { AsyncStorage, View, FlatList } from "react-native";
-import { Text } from "react-native-paper";
 import { getPosts } from "../api";
+import { Text } from "react-native-paper";
 
 export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
@@ -42,6 +42,9 @@ export default function HomeScreen() {
     <View>
       <Text>Just communities youre subscribed to </Text>
       <FlatList
+        contentContainerStyle={{
+          height: "100vh",
+        }}
         data={posts}
         extraData={loading}
         renderItem={({ item }: any) => {

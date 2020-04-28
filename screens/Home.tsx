@@ -39,12 +39,16 @@ export default function HomeScreen() {
   }
 
   return (
-    <View>
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flex: 1,
+      }}
+    >
       <Text>Just communities youre subscribed to </Text>
       <FlatList
-        contentContainerStyle={{
-          height: "100vh",
-        }}
+        contentContainerStyle={{}}
         data={posts}
         extraData={loading}
         renderItem={({ item }: any) => {

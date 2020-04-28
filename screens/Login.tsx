@@ -63,6 +63,7 @@ export default function Login({ navigation }: any) {
         justifyContent: "center",
       }}
     >
+      <Toast ref={toast} />
       <TextInput
         returnKeyType="next"
         label={"Username"}
@@ -85,7 +86,6 @@ export default function Login({ navigation }: any) {
       <Button mode="contained" onPress={handleSubmit}>
         Sign in
       </Button>
-      <Toast ref={toast} />
     </View>
   );
 }

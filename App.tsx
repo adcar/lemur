@@ -19,7 +19,7 @@ const theme = {
     background: "#252830",
     surface: "#2c3e50",
     text: "#ffffff",
-    placeholder: "#bdc3c7",
+    placeholder: "#ff00ff00",
   },
 };
 

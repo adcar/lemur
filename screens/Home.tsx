@@ -9,6 +9,7 @@ export default function HomeScreen({ navigation }: any) {
   const [page, setPage] = useState(1);
   const [jwt, setJwt] = useState("");
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
       const newJwt = await AsyncStorage.getItem("jwt");

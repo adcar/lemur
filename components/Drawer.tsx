@@ -17,7 +17,7 @@ const Drawer = createDrawerNavigator();
 
 export default function MyDrawer() {
   return (
-    <Drawer.Navigator initialRouteName="Notifications">
+    <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={Tabs} />
       <Drawer.Screen name="Notifications" component={NotificationsScreen} />
     </Drawer.Navigator>

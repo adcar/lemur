@@ -4,7 +4,8 @@ import Toast from "react-native-easy-toast";
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
 
-export default function Login({ navigation }: any) {
+export default function Login({ navigation, ...props }: any) {
+  console.log("Cool: " + JSON.stringify(props));
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const toast = useRef(null);
@@ -46,7 +47,8 @@ export default function Login({ navigation }: any) {
     }
   }
   function onSuccess() {
-    navigation.navigate("Main");
+    //onLogin();
+    navigation.replace("Main");
   }
 
   function showToast(message: string) {

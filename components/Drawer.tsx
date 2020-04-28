@@ -26,7 +26,6 @@ function MyDrawer({ navigation, theme }: any) {
         initialRouteName="Home"
         drawerStyle={{
           backgroundColor: colors.background,
-          position: "fixed",
         }}
       >
         <Drawer.Screen name="Home" component={Tabs} />

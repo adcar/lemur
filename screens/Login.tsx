@@ -68,7 +68,7 @@ export default function Login({ navigation, ...props }: any) {
       <Toast ref={toast} />
       <TextInput
         returnKeyType="next"
-        label={"Username"}
+        label="Username"
         value={username}
         placeholderTextColor="#D50000"
         onChangeText={setUsername}
@@ -80,7 +80,7 @@ export default function Login({ navigation, ...props }: any) {
       />
       <TextInput
         ref={passwordRef}
-        label={"Password"}
+        label="Password"
         secureTextEntry
         value={password}
         onChangeText={setPassword}

@@ -16,9 +16,10 @@ const theme = {
     ...DefaultTheme.colors,
     primary: "#8e44ad",
     accent: "#f1c40f",
-    background: "#2c3e50",
-    surface: "#34495e",
+    background: "#252830",
+    surface: "#2c3e50",
     text: "#ffffff",
+    placeholder: "#bdc3c7",
   },
 };
 

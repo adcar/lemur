@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, AsyncStorage } from "react-native";
 import Toast from "react-native-easy-toast";
-import { TextInput, Button } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const toast = useRef(null);
+  const passwordRef = useRef(null);
 
   useEffect(() => {
     (async () => {
@@ -54,18 +55,30 @@ export default function Login({ navigation }: any) {
       toast.current.show(message);
     }
   }
-
+  console.log("aa");
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <TextInput
-        label="Username"
+        returnKeyType="next"
+        label={"Username"}
         value={username}
         onChangeText={setUsername}
-        onSubmitEditing={handleSubmit}
+        onSubmitEditing={() => {
+          if (passwordRef !== null) {
+            passwordRef.current.focus();
+          }
+        }}
       />
       <TextInput
+        ref={passwordRef}
+        label={"Password"}
         secureTextEntry
-        label="Password"
         value={password}
         onChangeText={setPassword}
         onSubmitEditing={handleSubmit}

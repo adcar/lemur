@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AsyncStorage, Text, View, FlatList } from "react-native";
+import { AsyncStorage, View, FlatList } from "react-native";
+import { Text } from "react-native-paper";
 import { getPosts } from "../api";
 
 export default function HomeScreen() {
@@ -38,13 +39,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <View>
       <Text>Just communities youre subscribed to </Text>
       <FlatList
         data={posts}
@@ -54,7 +49,6 @@ export default function HomeScreen() {
             <Text
               style={{
                 height: 200,
-                width: "100vw",
               }}
             >
               {item.name}

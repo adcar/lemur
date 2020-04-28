@@ -6,7 +6,6 @@ import Home from "../screens/Home";
 import All from "../screens/All";
 import MyCommunities from "../screens/MyCommunities";
 import Inbox from "../screens/Inbox";
-
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Tabs() {
@@ -14,7 +13,7 @@ export default function Tabs() {
     <Tab.Navigator
       initialRouteName="Feed"
       activeColor="white"
-      style={{ backgroundColor: "green" }}
+      style={{ backgroundColor: "red" }}
     >
       <Tab.Screen
         name="Home"

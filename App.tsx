@@ -16,7 +16,7 @@ const theme = {
     primary: "#8e44ad",
     accent: "#f1c40f",
     background: "#252830",
-    surface: "#2c3e50",
+    surface: "#121212",
     text: "#ffffff",
     placeholder: "#ff00ff00",
   },

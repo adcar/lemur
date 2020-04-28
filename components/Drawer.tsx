@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Tabs from "./Tabs";
+import Appbar from "./Appbar";
 
 // TODO: Delete this
 function NotificationsScreen() {
@@ -15,11 +16,14 @@ function NotificationsScreen() {
 
 const Drawer = createDrawerNavigator();
 
-export default function MyDrawer() {
+export default function MyDrawer({ navigation }: any) {
   return (
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={Tabs} />
-      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-    </Drawer.Navigator>
+    <>
+      <Appbar navigation={navigation} />
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={Tabs} />
+        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      </Drawer.Navigator>
+    </>
   );
 }

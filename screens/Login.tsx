@@ -4,8 +4,7 @@ import Toast from "react-native-easy-toast";
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
 
-export default function Login({ navigation, ...props }: any) {
-  console.log("Cool: " + JSON.stringify(props));
+export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const toast = useRef(null);

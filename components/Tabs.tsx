@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 

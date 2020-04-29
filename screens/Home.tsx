@@ -61,7 +61,6 @@ export default function HomeScreen({ navigation }: any) {
       }}
     >
       <Appbar navigation={navigation} />
-      <Text>Just communities youre subscribed to </Text>
       <FlatList
         contentContainerStyle={{}}
         data={posts}

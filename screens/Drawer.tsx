@@ -34,12 +34,12 @@ function MyDrawer({ theme, navigation }: any) {
         drawerContent={(props) => (
           <CustomDrawerContent {...props} nav={navigation} />
         )}
-        initialRouteName="Tabs"
+        initialRouteName="Home"
         drawerStyle={{
           backgroundColor: colors.background,
         }}
       >
-        <Drawer.Screen name="Tabs" component={Tabs} />
+        <Drawer.Screen name="Home" component={Tabs} />
         <Drawer.Screen name="Preferences" component={Preferences} />
       </Drawer.Navigator>
     </>

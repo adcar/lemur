@@ -1,16 +1,20 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AsyncStorage, View, FlatList } from "react-native";
 import { getPosts } from "../api";
 import { Button, Text } from "react-native-paper";
+import { Context } from "../App";
 
 export default function HomeScreen({ navigation }: any) {
+  // @ts-ignore
+  const [state] = useContext(Context);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [jwt, setJwt] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log("mounted");
     (async () => {
       const newJwt = await AsyncStorage.getItem("jwt");
       if (newJwt !== null) {
@@ -19,18 +23,19 @@ export default function HomeScreen({ navigation }: any) {
       }
 
       if (newJwt !== null) {
-        const posts = await getPosts(newJwt, "Subscribed", page);
+        const posts = await getPosts(newJwt, "Subscribed", page, state.sort);
+
         setPosts(posts);
       }
     })();
-  }, []);
+  }, [state]);
 
   function onLoadMore() {
     console.log("Load more");
 
     if (jwt !== "" && !loading) {
       setLoading(true);
-      getPosts(jwt, "Subscribed", page + 1).then((newPosts) => {
+      getPosts(jwt, "Subscribed", page + 1, state.sort).then((newPosts) => {
         // @ts-ignore
         setPosts(posts.concat(newPosts));
         setPage(page + 1);

@@ -39,44 +39,43 @@ export default function MyAppBar({ navigation }: any) {
         onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
       />
       <Appbar.Content title="Home" subtitle={state.sort.fullname} />
-      <Appbar.Header>
-        <Menu
-          onDismiss={() => setSortMenuVisible(false)}
-          visible={sortMenuVisible}
-          anchor={
-            <Appbar.Action
-              disabled={false}
-              color="white"
-              icon="sort-variant"
-              onPress={() => setSortMenuVisible(true)}
-            />
-          }
-        >
-          {sorts.map((sort) => (
-            <Menu.Item
-              title={sort.fullname}
-              onPress={() => handleSortChange(sort)}
-            />
-          ))}
-        </Menu>
-        <Menu
-          onDismiss={() => setDotsMenuVisible(false)}
-          visible={dotsMenuVisible}
-          anchor={
-            <Appbar.Action
-              disabled={false}
-              color="white"
-              icon="dots-vertical"
-              onPress={() => setDotsMenuVisible(true)}
-            />
-          }
-        >
-          <Menu.Item
-            title="Preferences"
-            onPress={() => navigation.navigate("Preferences")}
+      <Menu
+        onDismiss={() => setSortMenuVisible(false)}
+        visible={sortMenuVisible}
+        anchor={
+          <Appbar.Action
+            disabled={false}
+            color="white"
+            icon="sort-variant"
+            onPress={() => setSortMenuVisible(true)}
           />
-        </Menu>
-      </Appbar.Header>
+        }
+      >
+        {sorts.map((sort, index) => (
+          <Menu.Item
+            key={index}
+            title={sort.fullname}
+            onPress={() => handleSortChange(sort)}
+          />
+        ))}
+      </Menu>
+      <Menu
+        onDismiss={() => setDotsMenuVisible(false)}
+        visible={dotsMenuVisible}
+        anchor={
+          <Appbar.Action
+            disabled={false}
+            color="white"
+            icon="dots-vertical"
+            onPress={() => setDotsMenuVisible(true)}
+          />
+        }
+      >
+        <Menu.Item
+          title="Preferences"
+          onPress={() => navigation.navigate("Preferences")}
+        />
+      </Menu>
     </Appbar>
   );
 }

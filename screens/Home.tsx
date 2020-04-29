@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useState, useContext } from "react";
 import { AsyncStorage, View, FlatList } from "react-native";
 import { getPosts } from "../api";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { Context } from "../components/Store";
 import Appbar from "../components/PostsAppbar";
 
@@ -62,19 +62,6 @@ export default function HomeScreen({ navigation }: any) {
     >
       <Appbar navigation={navigation} />
       <Text>Just communities youre subscribed to </Text>
-      <Button
-        mode="contained"
-        onPress={async () => {
-          await AsyncStorage.removeItem("jwt");
-          navigation.navigate("Login");
-        }}
-        style={{
-          height: 50,
-          width: 200,
-        }}
-      >
-        Logout
-      </Button>
       <FlatList
         contentContainerStyle={{}}
         data={posts}

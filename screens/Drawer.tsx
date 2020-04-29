@@ -2,8 +2,7 @@ import * as React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Tabs from "../components/Tabs";
-import Appbar from "../components/Appbar";
+import Tabs from "./Tabs";
 import { withTheme } from "react-native-paper";
 
 // TODO: Delete this
@@ -17,18 +16,17 @@ function Preferences() {
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer({ navigation, theme }: any) {
+function MyDrawer({ theme }: any) {
   const { colors } = theme;
   return (
     <>
-      <Appbar navigation={navigation} />
       <Drawer.Navigator
-        initialRouteName="Home"
+        initialRouteName="Tabs"
         drawerStyle={{
           backgroundColor: colors.background,
         }}
       >
-        <Drawer.Screen name="Home" component={Tabs} />
+        <Drawer.Screen name="Tabs" component={Tabs} />
         <Drawer.Screen name="Preferences" component={Preferences} />
       </Drawer.Navigator>
     </>

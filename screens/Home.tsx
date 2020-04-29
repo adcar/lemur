@@ -4,6 +4,7 @@ import { AsyncStorage, View, FlatList } from "react-native";
 import { getPosts } from "../api";
 import { Button, Text } from "react-native-paper";
 import { Context } from "../App";
+import Appbar from "../components/PostsAppbar";
 
 export default function HomeScreen({ navigation }: any) {
   // @ts-ignore
@@ -59,6 +60,7 @@ export default function HomeScreen({ navigation }: any) {
         flex: 1,
       }}
     >
+      <Appbar navigation={navigation} />
       <Text>Just communities youre subscribed to </Text>
       <Button
         mode="contained"

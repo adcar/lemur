@@ -3,10 +3,10 @@ import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-import Home from "../screens/Home";
-import All from "../screens/All";
-import MyCommunities from "../screens/MyCommunities";
-import Inbox from "../screens/Inbox";
+import Home from "./Home";
+import All from "./All";
+import MyCommunities from "./MyCommunities";
+import Inbox from "./Inbox";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Tabs() {

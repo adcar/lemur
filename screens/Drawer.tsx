@@ -11,7 +11,7 @@ import {
 } from "@react-navigation/drawer";
 import { AsyncStorage } from "react-native";
 
-function CustomDrawerContent({ navigation, ...props }: any) {
+function CustomDrawerContent({ nav, ...props }: any) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -19,7 +19,7 @@ function CustomDrawerContent({ navigation, ...props }: any) {
         label="Logout"
         onPress={async () => {
           await AsyncStorage.removeItem("jwt");
-          navigation.replace("Login");
+          nav.replace("Login");
         }}
       />
     </DrawerContentScrollView>
@@ -32,7 +32,7 @@ function MyDrawer({ theme, navigation }: any) {
     <>
       <Drawer.Navigator
         drawerContent={(props) => (
-          <CustomDrawerContent {...props} navigation={navigation} />
+          <CustomDrawerContent {...props} nav={navigation} />
         )}
         initialRouteName="Tabs"
         drawerStyle={{

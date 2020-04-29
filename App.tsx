@@ -23,7 +23,12 @@ const theme = {
     placeholder: "#7f8c8dff",
   },
 };
-const initialState = { sort: "Hot" };
+const initialState = {
+  sort: {
+    fullname: "Hot",
+    name: "Hot",
+  },
+};
 
 function App() {
   const [state, dispatch] = useReducer(Reducer, initialState);

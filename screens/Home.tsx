@@ -23,7 +23,12 @@ export default function HomeScreen({ navigation }: any) {
       }
 
       if (newJwt !== null) {
-        const posts = await getPosts(newJwt, "Subscribed", page, state.sort);
+        const posts = await getPosts(
+          newJwt,
+          "Subscribed",
+          page,
+          state.sort.name
+        );
 
         setPosts(posts);
       }
@@ -35,12 +40,14 @@ export default function HomeScreen({ navigation }: any) {
 
     if (jwt !== "" && !loading) {
       setLoading(true);
-      getPosts(jwt, "Subscribed", page + 1, state.sort).then((newPosts) => {
-        // @ts-ignore
-        setPosts(posts.concat(newPosts));
-        setPage(page + 1);
-        setLoading(false);
-      });
+      getPosts(jwt, "Subscribed", page + 1, state.sort.name).then(
+        (newPosts) => {
+          // @ts-ignore
+          setPosts(posts.concat(newPosts));
+          setPage(page + 1);
+          setLoading(false);
+        }
+      );
     }
   }
 

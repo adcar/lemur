@@ -4,16 +4,28 @@ import { DrawerActions } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { useState, useContext } from "react";
 import { Context } from "../App";
-
+interface ISort {
+  fullname: string;
+  name: string;
+}
 export default function MyAppBar({ navigation }: any) {
   const [visible, setVisible] = useState(false);
   // @ts-ignore
-  const [, dispatch] = useContext(Context);
-
-  function handleSortChange(sort: string) {
+  const [state, dispatch] = useContext(Context);
+  function handleSortChange(sort: ISort) {
     console.log("Sort change: " + sort);
     dispatch({ type: "SET_SORT", payload: sort });
   }
+
+  const sorts = [
+    { fullname: "Hot", name: "Hot" },
+    { fullname: "New", name: "New" },
+    { fullname: "Top today", name: "TopDay" },
+    { fullname: "Top this week", name: "TopWeek" },
+    { fullname: "Top this month", name: "TopMonth" },
+    { fullname: "Top this year", name: "TopYear" },
+    { fullname: "Top all time", name: "TopAll" },
+  ];
 
   return (
     <Appbar
@@ -25,7 +37,7 @@ export default function MyAppBar({ navigation }: any) {
         icon="menu"
         onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
       />
-      <Appbar.Content title="Lemur" />
+      <Appbar.Content title="Home" subtitle={state.sort.fullname} />
       <Appbar.Header>
         <Menu
           onDismiss={() => setVisible(false)}
@@ -39,28 +51,12 @@ export default function MyAppBar({ navigation }: any) {
             />
           }
         >
-          <Menu.Item title="Hot" onPress={() => handleSortChange("Hot")} />
-          <Menu.Item title="New" onPress={() => handleSortChange("New")} />
-          <Menu.Item
-            title="Top Today"
-            onPress={() => handleSortChange("TopDay")}
-          />
-          <Menu.Item
-            title="Top this Week"
-            onPress={() => handleSortChange("TopWeek")}
-          />
-          <Menu.Item
-            title="Top this Month"
-            onPress={() => handleSortChange("TopMonth")}
-          />
-          <Menu.Item
-            title="Top this Year"
-            onPress={() => handleSortChange("TopYear")}
-          />
-          <Menu.Item
-            title="Top All Time"
-            onPress={() => handleSortChange("TopAll")}
-          />
+          {sorts.map((sort) => (
+            <Menu.Item
+              title={sort.fullname}
+              onPress={() => handleSortChange(sort)}
+            />
+          ))}
         </Menu>
       </Appbar.Header>
     </Appbar>

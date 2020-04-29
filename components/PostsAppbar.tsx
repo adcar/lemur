@@ -74,7 +74,10 @@ export default function MyAppBar({ navigation }: any) {
       >
         <Menu.Item
           title="Preferences"
-          onPress={() => navigation.navigate("Preferences")}
+          onPress={() => {
+            navigation.navigate("Preferences");
+            setDotsMenuVisible(false);
+          }}
         />
       </Menu>
     </Appbar>

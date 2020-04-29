@@ -16,6 +16,7 @@ export default function MyAppBar({ navigation }: any) {
   function handleSortChange(sort: ISort) {
     console.log("Sort change: " + sort);
     dispatch({ type: "SET_SORT", payload: sort });
+    setSortMenuVisible(false);
   }
 
   const sorts = [

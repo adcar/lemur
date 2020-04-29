@@ -14,6 +14,7 @@ export default function MyAppBar({ navigation }: any) {
         icon="menu"
         onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
       />
+      <Appbar.Content title="Lemur" />
     </Appbar>
   );
 }

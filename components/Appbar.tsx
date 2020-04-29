@@ -9,7 +9,8 @@ interface ISort {
   name: string;
 }
 export default function MyAppBar({ navigation }: any) {
-  const [visible, setVisible] = useState(false);
+  const [sortMenuVisible, setSortMenuVisible] = useState(false);
+  const [dotsMenuVisible, setDotsMenuVisible] = useState(false);
   // @ts-ignore
   const [state, dispatch] = useContext(Context);
   function handleSortChange(sort: ISort) {
@@ -40,14 +41,14 @@ export default function MyAppBar({ navigation }: any) {
       <Appbar.Content title="Home" subtitle={state.sort.fullname} />
       <Appbar.Header>
         <Menu
-          onDismiss={() => setVisible(false)}
-          visible={visible}
+          onDismiss={() => setSortMenuVisible(false)}
+          visible={sortMenuVisible}
           anchor={
             <Appbar.Action
               disabled={false}
               color="white"
               icon="sort-variant"
-              onPress={() => setVisible(true)}
+              onPress={() => setSortMenuVisible(true)}
             />
           }
         >
@@ -57,6 +58,23 @@ export default function MyAppBar({ navigation }: any) {
               onPress={() => handleSortChange(sort)}
             />
           ))}
+        </Menu>
+        <Menu
+          onDismiss={() => setDotsMenuVisible(false)}
+          visible={dotsMenuVisible}
+          anchor={
+            <Appbar.Action
+              disabled={false}
+              color="white"
+              icon="dots-vertical"
+              onPress={() => setDotsMenuVisible(true)}
+            />
+          }
+        >
+          <Menu.Item
+            title="Preferences"
+            onPress={() => navigation.navigate("Preferences")}
+          />
         </Menu>
       </Appbar.Header>
     </Appbar>

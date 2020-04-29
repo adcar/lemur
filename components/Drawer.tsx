@@ -7,7 +7,7 @@ import Appbar from "./Appbar";
 import { withTheme } from "react-native-paper";
 
 // TODO: Delete this
-function NotificationsScreen() {
+function Preferences() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Hello</Text>
@@ -29,7 +29,7 @@ function MyDrawer({ navigation, theme }: any) {
         }}
       >
         <Drawer.Screen name="Home" component={Tabs} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Preferences" component={Preferences} />
       </Drawer.Navigator>
     </>
   );

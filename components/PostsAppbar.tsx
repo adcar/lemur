@@ -3,7 +3,7 @@ import { Appbar, Menu } from "react-native-paper";
 import { DrawerActions } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { useState, useContext } from "react";
-import { Context } from "../App";
+import { Context } from "./Store";
 interface ISort {
   fullname: string;
   name: string;

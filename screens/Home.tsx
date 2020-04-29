@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { AsyncStorage, View, FlatList } from "react-native";
 import { getPosts } from "../api";
 import { Button, Text } from "react-native-paper";
-import { Context } from "../App";
+import { Context } from "../components/Store";
 import Appbar from "../components/PostsAppbar";
 
 export default function HomeScreen({ navigation }: any) {
@@ -93,6 +93,7 @@ export default function HomeScreen({ navigation }: any) {
         refreshing={true}
         onEndReachedThreshold={0.99}
         onEndReached={onLoadMore}
+        keyExtractor={(item) => item.name}
       />
     </View>
   );

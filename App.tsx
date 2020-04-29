@@ -4,8 +4,7 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import Login from "./screens/Login";
 import { createStackNavigator } from "@react-navigation/stack";
 import MyDrawer from "./screens/Drawer";
-import { createContext, useReducer } from "react";
-import Reducer from "./Reducer";
+import Store from "./components/Store";
 const Stack = createStackNavigator();
 
 const theme = {
@@ -23,18 +22,10 @@ const theme = {
     placeholder: "#7f8c8dff",
   },
 };
-const initialState = {
-  sort: {
-    fullname: "Hot",
-    name: "Hot",
-  },
-};
 
 function App() {
-  const [state, dispatch] = useReducer(Reducer, initialState);
-
   return (
-    <Context.Provider value={[state, dispatch]}>
+    <Store>
       <PaperProvider theme={theme}>
         <NavigationContainer theme={theme}>
           <Stack.Navigator headerMode={"none"}>
@@ -43,8 +34,7 @@ function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
-    </Context.Provider>
+    </Store>
   );
 }
-export const Context = createContext(initialState);
 export default App;

@@ -2,8 +2,8 @@ import * as React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Tabs from "./Tabs";
-import Appbar from "./Appbar";
+import Tabs from "../components/Tabs";
+import Appbar from "../components/Appbar";
 import { withTheme } from "react-native-paper";
 
 // TODO: Delete this

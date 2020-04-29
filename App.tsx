@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import Login from "./screens/Login";
 import { createStackNavigator } from "@react-navigation/stack";
-import MyDrawer from "./components/Drawer";
+import MyDrawer from "./screens/Drawer";
 import { createContext, useReducer } from "react";
 import Reducer from "./Reducer";
 const Stack = createStackNavigator();

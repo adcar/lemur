@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState, useContext } from "react";
-import { AsyncStorage, View, FlatList } from "react-native";
+import {AsyncStorage} from "react-native";import { View, FlatList } from "react-native";
 import { getPosts } from "../api";
 import { Text } from "react-native-paper";
 import { Context } from "../components/Store";

@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, AsyncStorage } from "react-native";
-import Toast from "react-native-easy-toast";
+import { AsyncStorage } from "react-native";
+import { View, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
+import Toast from "../components/Toast";
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const toast = useRef(null);
+  const [isVisible, setVisible] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
   const passwordRef = useRef(null);
 
   useEffect(() => {
@@ -51,10 +53,12 @@ export default function Login({ navigation }: any) {
   }
 
   function showToast(message: string) {
-    if (toast !== null) {
-      // @ts-ignore
-      toast.current.show(message);
-    }
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 5000);
+
+    setToastMsg("Error: " + message);
   }
   return (
     <View
@@ -64,7 +68,10 @@ export default function Login({ navigation }: any) {
         justifyContent: "center",
       }}
     >
-      <Toast ref={toast} />
+      <Toast visible={isVisible}>
+        <Text>{toastMsg}</Text>
+      </Toast>
+
       <TextInput
         returnKeyType="next"
         label="Username"
@@ -91,4 +98,3 @@ export default function Login({ navigation }: any) {
     </View>
   );
 }
-1;

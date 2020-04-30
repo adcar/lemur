@@ -10,7 +10,6 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { AsyncStorage } from "react-native";
-
 function CustomDrawerContent({ nav, ...props }: any) {
   return (
     <DrawerContentScrollView {...props}>

@@ -5,7 +5,8 @@ export async function getPosts(
   jwt: string,
   type = "Subscribed",
   page = 1,
-  sort = "Hot"
+  sort = "Hot",
+
 ) {
   const res = await fetch(
     API_BASE + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`

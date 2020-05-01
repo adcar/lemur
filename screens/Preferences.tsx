@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import {
   List,
   TextInput,
@@ -10,7 +10,7 @@ import {
 } from "react-native-paper";
 import PrefsAppbar from "../components/PrefsAppbar";
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../components/Store";
 
 const sorts = [
@@ -29,21 +29,32 @@ interface ISort {
 }
 
 function Preferences({ navigation, theme }: any) {
-  const [server, setServer] = React.useState("dev.lemmy.ml");
   const [changeServerModal, setChangeServerModal] = React.useState(false);
   const [NSFW, changeNSFW] = React.useState(false);
   const [sortModal, changeSortModal] = React.useState(false);
   const [state, dispatch] = useContext(Context);
+  const [server, setServer] = React.useState(state.server);
+
+  useEffect(() => {
+    (async () => {
+      const newServer = await AsyncStorage.getItem("@Prefs:server");
+
+      if (server !== null) {
+        setServer(newServer as string);
+      }
+    })();
+  }, []);
 
   function handleSortChange(sort: ISort) {
+    AsyncStorage.setItem("@Prefs:sort", JSON.stringify(sort));
     console.log("Sort change: " + sort);
     dispatch({ type: "SET_SORT", payload: sort });
     changeSortModal(false);
   }
 
   function handleServerChange() {
+    AsyncStorage.setItem("@Prefs:server", server);
     console.log("Server change: " + server);
-    dispatch({ type: "SET_SERVER", payload: server });
     setChangeServerModal(false);
   }
   const { colors } = theme;
@@ -53,7 +64,7 @@ function Preferences({ navigation, theme }: any) {
       <View>
         <List.Section>
           <List.Item
-            title="Server"
+            title="Default server"
             description={server}
             onPress={() => {
               setChangeServerModal(true);

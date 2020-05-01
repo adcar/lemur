@@ -1,6 +1,7 @@
 import * as React from "react";
 import Reducer from "../Reducer";
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
+import { AsyncStorage } from "react-native";
 
 const initialState: any = {
   sort: {
@@ -15,7 +16,20 @@ const myArray: any = [initialState, () => {}];
 export const Context = createContext(myArray);
 
 export default function Store({ children }: any) {
-  const [state, dispatch] = useReducer(Reducer, initialState);
+  const [server, setServer] = useState(initialState.server);
+  const [sort, setSort] = useState(initialState.sort);
+  (async () => {
+    setServer(await AsyncStorage.getItem("@Prefs:server"));
+    setSort(JSON.parse((await AsyncStorage.getItem("@Prefs:sort")) as string));
+  })();
+
+  console.log(sort);
+  const defaultState = {
+    ...initialState,
+    sort,
+    server,
+  };
+  const [state, dispatch] = useReducer(Reducer, defaultState);
 
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>

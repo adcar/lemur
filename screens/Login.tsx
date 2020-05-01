@@ -11,10 +11,9 @@ export default function Login({ navigation }: any) {
   const [password, setPassword] = useState("");
   const [isVisible, setVisible] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
-  const [server, setServer] = useState("dev.lemmy.ml");
-  const passwordRef = useRef(null);
-
   const [state, dispatch] = useContext(Context);
+  const [server, setServer] = useState(state.server);
+  const passwordRef = useRef(null);
 
   useEffect(() => {
     (async () => {
@@ -27,6 +26,14 @@ export default function Login({ navigation }: any) {
       } catch (error) {
         // Don't bother the user about this
         console.error(error);
+      }
+    })();
+
+    (async () => {
+      const server = await AsyncStorage.getItem("server");
+      if (server !== null) {
+        console.log("hooray");
+        setServer(server);
       }
     })();
   }, []);
@@ -55,6 +62,7 @@ export default function Login({ navigation }: any) {
   function handleServerSubmit() {
     console.log("handling server submit");
     dispatch({ type: "SET_SERVER", payload: server });
+    AsyncStorage.setItem("@Prefs:server", server);
   }
 
   function onSuccess() {

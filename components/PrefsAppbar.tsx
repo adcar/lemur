@@ -1,8 +1,6 @@
 import { Appbar } from "react-native-paper";
 import Constants from "expo-constants";
 import * as React from "react";
-import { DrawerActions } from "@react-navigation/native";
-
 export default function PresAppbar({ navigation }: any) {
   return (
     <Appbar
@@ -10,10 +8,7 @@ export default function PresAppbar({ navigation }: any) {
         marginTop: Constants.statusBarHeight,
       }}
     >
-      <Appbar.Action
-        icon="menu"
-        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-      />
+      <Appbar.Action icon="arrow-left" onPress={() => navigation.goBack()} />
       <Appbar.Content title="Preferences" />
     </Appbar>
   );

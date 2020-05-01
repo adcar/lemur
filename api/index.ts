@@ -22,6 +22,7 @@ export async function login(
   server: string
 ): Promise<Response> {
   const apiBase = getBase(server);
+  console.log("url" + apiBase + "/user/login");
   return await fetch(apiBase + "/user/login", {
     method: "POST",
     headers: {

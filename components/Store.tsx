@@ -6,8 +6,8 @@ const initialState: any = {
   sort: {
     fullname: "Hot",
     name: "Hot",
-    server: "dev.lemmy.ml",
   },
+  server: "dev.lemmy.ml",
 };
 
 const myArray: any = [initialState, () => {}];

@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AsyncStorage } from "react-native";
 import { View, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
 import Toast from "../components/Toast";
-import {Context} from "../components/Store";
+import { Context } from "../components/Store";
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ export default function Login({ navigation }: any) {
   const [server, setServer] = useState("dev.lemmy.ml");
   const passwordRef = useRef(null);
 
-  const [, dispatch] = useContext(Context);
+  const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
     (async () => {
@@ -33,7 +33,7 @@ export default function Login({ navigation }: any) {
 
   async function handleSubmit() {
     try {
-      const res = await login(username, password);
+      const res = await login(username, password, state.server);
 
       if (res.status !== 200) {
         showToast(await res.text());
@@ -45,18 +45,17 @@ export default function Login({ navigation }: any) {
         await AsyncStorage.setItem("jwt", jwt);
         onSuccess();
       } catch (e) {
-        showToast("Error: " + e);
+        showToast("Error (Couldn't set token): " + e);
       }
     } catch (e) {
-      showToast("Error" + e);
+      showToast("Error (Fetch failed): " + e);
     }
   }
   function handleServerSubmit() {
-    dispatch({type: "SET_SERVER", payload: server})
+    dispatch({ type: "SET_SERVER", payload: server });
   }
 
   function onSuccess() {
-    //onLogin();
     navigation.replace("Main");
   }
 

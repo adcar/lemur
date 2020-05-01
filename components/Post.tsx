@@ -7,6 +7,8 @@ import FitImage from "react-native-fit-image";
 import { Linking } from "expo";
 
 interface IProps {
+  navigation: any;
+
   community_name: string;
   url: string | null;
   name: string;
@@ -20,6 +22,7 @@ interface IProps {
   number_of_comments: number;
   local: boolean;
   saved: boolean;
+  id: number;
 }
 
 const styles = StyleSheet.create({
@@ -101,7 +104,10 @@ export default function Post(props: IProps) {
     <Card style={styles.root}>
       {heading}
       <Card.Actions>
-        <Button icon="comment-multiple">
+        <Button
+          icon="comment-multiple"
+          onPress={() => props.navigation.navigate("Comments", props.id)}
+        >
           {props.number_of_comments} comments
         </Button>
         <View

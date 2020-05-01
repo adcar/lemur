@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { AsyncStorage } from "react-native";
 import { View, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../api";
 import Toast from "../components/Toast";
+import {Context} from "../components/Store";
 
 export default function Login({ navigation }: any) {
   const [username, setUsername] = useState("");
@@ -12,6 +13,8 @@ export default function Login({ navigation }: any) {
   const [toastMsg, setToastMsg] = useState("");
   const [server, setServer] = useState("dev.lemmy.ml");
   const passwordRef = useRef(null);
+
+  const [, dispatch] = useContext(Context);
 
   useEffect(() => {
     (async () => {
@@ -48,6 +51,9 @@ export default function Login({ navigation }: any) {
       showToast("Error" + e);
     }
   }
+  function handleServerSubmit() {
+    dispatch({type: "SET_SERVER", payload: server})
+  }
 
   function onSuccess() {
     //onLogin();
@@ -83,6 +89,7 @@ export default function Login({ navigation }: any) {
             setServer(text);
           }}
           label="Server"
+          onSubmitEditing={handleServerSubmit}
         />
         <Button
           style={{ display: "flex", flex: 1, justifyContent: "center" }}

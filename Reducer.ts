@@ -10,6 +10,11 @@ const Reducer = (state: any, action: IAction) => {
         ...state,
         sort: action.payload,
       };
+    case "SET_SERVER":
+      return {
+        ...state,
+        server: action.payload,
+      };
     default:
       return state;
   }

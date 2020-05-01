@@ -7,7 +7,6 @@ import { Context } from "../components/Store";
 import Appbar from "../components/PostsAppbar";
 
 export default function HomeScreen({ navigation }: any) {
-  // @ts-ignore
   const [state] = useContext(Context);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);

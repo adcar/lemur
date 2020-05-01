@@ -11,7 +11,6 @@ interface ISort {
 export default function MyAppBar({ navigation }: any) {
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
   const [dotsMenuVisible, setDotsMenuVisible] = useState(false);
-  // @ts-ignore
   const [state, dispatch] = useContext(Context);
   function handleSortChange(sort: ISort) {
     console.log("Sort change: " + sort);

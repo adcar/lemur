@@ -32,6 +32,7 @@ export default function Login({ navigation }: any) {
   }, []);
 
   async function handleSubmit() {
+    handleServerSubmit();
     try {
       const res = await login(username, password, state.server);
 
@@ -52,6 +53,7 @@ export default function Login({ navigation }: any) {
     }
   }
   function handleServerSubmit() {
+    console.log("handling server submit");
     dispatch({ type: "SET_SERVER", payload: server });
   }
 
@@ -89,6 +91,7 @@ export default function Login({ navigation }: any) {
           }}
           label="Server"
           onSubmitEditing={handleServerSubmit}
+          onBlur={handleServerSubmit}
         />
         <Button
           style={{ display: "flex", flex: 1, justifyContent: "center" }}

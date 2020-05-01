@@ -30,7 +30,7 @@ function MyDrawer({ theme, navigation }: any) {
   return (
     <>
       <Drawer.Navigator
-        drawerContent={(props) => (
+        drawerContent={(props: any) => (
           <CustomDrawerContent {...props} nav={navigation} />
         )}
         initialRouteName="Home"

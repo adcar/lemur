@@ -110,6 +110,7 @@ export default function Login({ navigation }: any) {
         onChangeText={setUsername}
         onSubmitEditing={() => {
           if (passwordRef !== null) {
+            // @ts-ignore
             passwordRef.current.focus();
           }
         }}

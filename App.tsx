@@ -13,8 +13,6 @@ const theme = {
     primary: "#8e44ad",
     background: "#252830",
     text: "#ffffff",
-    card: "rgb(255, 255, 255)",
-    border: "rgb(199, 199, 204)",
   },
 };
 
@@ -23,11 +21,22 @@ const paperTheme = {
   ...theme,
   roundness: 2,
   mode: "adaptive",
+
   colors: {
     ...DefaultTheme.colors,
+    ...theme.colors,
     accent: "#f1c40f",
     surface: "#121212",
     placeholder: "#7f8c8dff",
+  },
+};
+
+const navigationTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    card: paperTheme.colors.surface,
+    border: "rgb(199, 199, 204)",
   },
 };
 
@@ -35,7 +44,7 @@ function App() {
   return (
     <Store>
       <PaperProvider theme={paperTheme}>
-        <NavigationContainer theme={theme}>
+        <NavigationContainer theme={navigationTheme}>
           <Stack.Navigator headerMode={"none"}>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Main" component={MyDrawer} />

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState, useContext } from "react";
-import {AsyncStorage} from "react-native";import { View, FlatList } from "react-native";
+import { AsyncStorage } from "react-native";
+import { View, FlatList } from "react-native";
 import { getPosts } from "../api";
 import { Text } from "react-native-paper";
 import { Context } from "../components/Store";
@@ -27,7 +28,8 @@ export default function HomeScreen({ navigation }: any) {
           newJwt,
           "Subscribed",
           page,
-          state.sort.name
+          state.sort.name,
+          state.server
         );
 
         setPosts(posts);
@@ -40,7 +42,7 @@ export default function HomeScreen({ navigation }: any) {
 
     if (jwt !== "" && !loading) {
       setLoading(true);
-      getPosts(jwt, "Subscribed", page + 1, state.sort.name).then(
+      getPosts(jwt, "Subscribed", page + 1, state.sort.name, state.server).then(
         (newPosts) => {
           // @ts-ignore
           setPosts(posts.concat(newPosts));

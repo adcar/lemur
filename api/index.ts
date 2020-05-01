@@ -1,24 +1,28 @@
-export const API_BASE =
-  "https://corsssssss.herokuapp.com/https://dev.lemmy.ml/api/v1";
+function getBase(server: string) {
+  return `https://corsssssss.herokuapp.com/https://${server}/api/v1`;
+}
 
 export async function getPosts(
   jwt: string,
   type = "Subscribed",
   page = 1,
   sort = "Hot",
-
+  server = "dev.lemmy.ml"
 ) {
+  const apiBase = getBase(server);
   const res = await fetch(
-    API_BASE + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`
+    apiBase + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`
   );
   return (await res.json()).posts;
 }
 
 export async function login(
   username: string,
-  password: string
+  password: string,
+  server: string
 ): Promise<Response> {
-  return await fetch(API_BASE + "/user/login", {
+  const apiBase = getBase(server);
+  return await fetch(apiBase + "/user/login", {
     method: "POST",
     headers: {
       Accept: "application/json",

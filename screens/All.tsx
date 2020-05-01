@@ -4,7 +4,7 @@ import { Text, View, AsyncStorage } from "react-native";
 import { getPosts } from "../api";
 
 export default function HomeScreen() {
-  const [posts, setPosts] = useState([]);
+  const [, setPosts] = useState([]);
   useEffect(() => {
     (async () => {
       const jwt = await AsyncStorage.getItem("jwt");
@@ -15,7 +15,6 @@ export default function HomeScreen() {
     })();
   }, []);
 
-  console.log(posts);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>All communities</Text>

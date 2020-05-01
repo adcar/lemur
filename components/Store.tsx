@@ -23,7 +23,6 @@ export default function Store({ children }: any) {
     setSort(JSON.parse((await AsyncStorage.getItem("@Prefs:sort")) as string));
   })();
 
-  console.log(sort);
   const defaultState = {
     ...initialState,
     sort,

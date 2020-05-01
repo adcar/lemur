@@ -32,7 +32,7 @@ export default function Login({ navigation }: any) {
     (async () => {
       const server = await AsyncStorage.getItem("server");
       if (server !== null) {
-        console.log("hooray");
+        console.log("Setting server...");
         setServer(server);
       }
     })();

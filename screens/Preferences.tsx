@@ -1,9 +1,9 @@
 import {View} from "react-native";
-import {Text, List, TextInput, Switch, Portal, Modal, Button} from "react-native-paper";
+import {List, TextInput, Switch, Portal, Modal, Button} from "react-native-paper";
 import PrefsAppbar from "../components/PrefsAppbar";
 import * as React from "react";
-import { useContext } from "react";
-import { Context } from "../components/Store";
+import {useContext} from "react";
+import {Context} from "../components/Store";
 
 
 const sorts = [
@@ -15,6 +15,7 @@ const sorts = [
     {fullname: "Top this year", name: "TopYear"},
     {fullname: "Top all time", name: "TopAll"},
 ];
+
 interface ISort {
     fullname: string;
     name: string;
@@ -24,14 +25,16 @@ interface ISort {
 export default function Preferences({navigation}: any) {
     const [server, setServer] = React.useState("dev.lemmy.ml");
     const [changeServerModal, setChangeServerModal] = React.useState(false);
-    const [NSFW, changeNSFW]=React.useState(false);
+    const [NSFW, changeNSFW] = React.useState(false);
     const [sortModal, changeSortModal] = React.useState(false);
     const [state, dispatch] = useContext(Context);
+
     function handleSortChange(sort: ISort) {
         console.log("Sort change: " + sort);
-        dispatch({ type: "SET_SORT", payload: sort });
+        dispatch({type: "SET_SORT", payload: sort});
         changeSortModal(false);
     }
+
     return (
         <>
             <PrefsAppbar navigation={navigation}/>
@@ -49,7 +52,9 @@ export default function Preferences({navigation}: any) {
                                }}>
                     </List.Item>
                     <List.Item title="Show NSFW content"
-                    right={()=>(<Switch value={NSFW} onValueChange={()=>{changeNSFW(!NSFW)}}/>)}>
+                               right={() => (<Switch value={NSFW} onValueChange={() => {
+                                   changeNSFW(!NSFW)
+                               }}/>)}>
 
                     </List.Item>
                 </List.Section>
@@ -79,7 +84,9 @@ export default function Preferences({navigation}: any) {
                             {sorts.map((sort) => (
                                 <List.Item
                                     title={sort.fullname}
-                                    onPress={()=>{handleSortChange(sort)}}
+                                    onPress={() => {
+                                        handleSortChange(sort)
+                                    }}
                                 />
                             ))}
                         </List.Section>

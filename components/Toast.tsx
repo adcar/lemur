@@ -20,7 +20,7 @@ function Toast({ children, visible, theme }: IProps) {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        top: 10,
+        top: 20,
         left: 0,
       }}
     >

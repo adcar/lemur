@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }: any) {
         refreshing={true}
         onEndReachedThreshold={0.99}
         onEndReached={onLoadMore}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );

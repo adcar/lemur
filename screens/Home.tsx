@@ -3,9 +3,9 @@ import { useEffect, useState, useContext } from "react";
 import { AsyncStorage } from "react-native";
 import { View, FlatList } from "react-native";
 import { getPosts } from "../api";
-import { Text } from "react-native-paper";
 import { Context } from "../components/Store";
 import Appbar from "../components/PostsAppbar";
+import Post from "../components/Post";
 
 export default function HomeScreen({ navigation }: any) {
   const [state] = useContext(Context);
@@ -67,15 +67,7 @@ export default function HomeScreen({ navigation }: any) {
         data={posts}
         extraData={loading}
         renderItem={({ item }: any) => {
-          return (
-            <Text
-              style={{
-                height: 200,
-              }}
-            >
-              {item.name}
-            </Text>
-          );
+          return <Post {...item} />;
         }}
         refreshing={true}
         onEndReachedThreshold={0.99}

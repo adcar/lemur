@@ -40,6 +40,12 @@ function Preferences({ navigation, theme }: any) {
     dispatch({ type: "SET_SORT", payload: sort });
     changeSortModal(false);
   }
+
+  function handleServerChange() {
+    console.log("Server change: " + server);
+    dispatch({ type: "SET_SERVER", payload: server });
+    setChangeServerModal(false);
+  }
   const { colors } = theme;
   return (
     <>
@@ -92,6 +98,8 @@ function Preferences({ navigation, theme }: any) {
                 onChangeText={(text) => {
                   setServer(text);
                 }}
+                onSubmitEditing={handleServerChange}
+                onBlur={handleServerChange}
                 label="Server"
               />
               <Button

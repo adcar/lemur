@@ -39,7 +39,7 @@ export default function HomeScreen({ navigation }: any) {
 
   function onLoadMore() {
     console.log("Load more");
-
+    console.log("Server: " + state.server);
     if (jwt !== "" && !loading) {
       setLoading(true);
       getPosts(jwt, "Subscribed", page + 1, state.sort.name, state.server).then(

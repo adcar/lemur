@@ -8,17 +8,25 @@ import Store from "./components/Store";
 const Stack = createStackNavigator();
 
 const theme = {
-  ...DefaultTheme,
-  roundness: 2,
   dark: true,
+  colors: {
+    primary: "#8e44ad",
+    background: "#252830",
+    text: "#ffffff",
+    card: "rgb(255, 255, 255)",
+    border: "rgb(199, 199, 204)",
+  },
+};
+
+const paperTheme = {
+  ...DefaultTheme,
+  ...theme,
+  roundness: 2,
   mode: "adaptive",
   colors: {
     ...DefaultTheme.colors,
-    primary: "#8e44ad",
     accent: "#f1c40f",
-    background: "#252830",
     surface: "#121212",
-    text: "#ffffff",
     placeholder: "#7f8c8dff",
   },
 };
@@ -26,7 +34,7 @@ const theme = {
 function App() {
   return (
     <Store>
-      <PaperProvider theme={theme}>
+      <PaperProvider theme={paperTheme}>
         <NavigationContainer theme={theme}>
           <Stack.Navigator headerMode={"none"}>
             <Stack.Screen name="Login" component={Login} />

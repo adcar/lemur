@@ -1,5 +1,5 @@
 import {View} from "react-native";
-import {Text, List, TextInput, Menu, Portal, Modal, Button, ToggleButton} from "react-native-paper";
+import {Text, List, TextInput, Switch, Portal, Modal, Button} from "react-native-paper";
 import PrefsAppbar from "../components/PrefsAppbar";
 import * as React from "react";
 import { useContext } from "react";
@@ -37,22 +37,19 @@ export default function Preferences({navigation}: any) {
             <PrefsAppbar navigation={navigation}/>
             <View>
                 <List.Section>
-                    < List.Item title="Change server"
+                    < List.Item title="Server"
                                 description={server}
                                 onPress={() => {
                                     setChangeServerModal(true)
                                 }}/>
-                    <List.Item title="Change Sort"
+                    <List.Item title="Default Sort"
                                description={state.sort.fullname}
                                onPress={() => {
                                    changeSortModal(true)
                                }}>
                     </List.Item>
                     <List.Item title="Show NSFW content"
-                    right={()=>(<ToggleButton
-                    icon="bluetooth"
-                    value="bluetooth"
-                    />)}>
+                    right={()=>(<Switch value={NSFW} onValueChange={()=>{changeNSFW(!NSFW)}}/>)}>
 
                     </List.Item>
                 </List.Section>

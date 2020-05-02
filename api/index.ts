@@ -16,6 +16,16 @@ export async function getPosts(
   return (await res.json()).posts;
 }
 
+export async function getPost(
+  id: number,
+  server = "dev.lemmy.ml",
+  sort: "Hot" | "Top" | "New" | "Old" = "Hot"
+) {
+  const apiBase = getBase(server);
+  const res = await fetch(apiBase + `/post?id=${id}&sort=${sort}`);
+  return (await res.json()).post;
+}
+
 export async function login(
   username: string,
   password: string,

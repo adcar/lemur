@@ -106,7 +106,9 @@ export default function Post(props: IProps) {
       <Card.Actions>
         <Button
           icon="comment-multiple"
-          onPress={() => props.navigation.navigate("Comments", props.id)}
+          onPress={() =>
+            props.navigation.navigate("Comments", { id: props.id })
+          }
         >
           {props.number_of_comments} comments
         </Button>

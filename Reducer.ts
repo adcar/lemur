@@ -15,6 +15,11 @@ const Reducer = (state: any, action: IAction) => {
         ...state,
         server: action.payload,
       };
+    case "SET_JWT":
+      return {
+        ...state,
+        jwt: action.payload,
+      };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import CommentsAppbar from "../components/CommentsAppbar";
 import { getPost } from "../api";
@@ -15,7 +15,7 @@ export default function Comments({ navigation, route }: IProps) {
   const [post, setPost] = useState({});
   useEffect(() => {
     (async () => {
-      const res = await getPost(id, state.server);
+      const res = await getPost(id, state.server, state.jwt);
       setPost(res);
     })();
   }, []);

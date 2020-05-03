@@ -19,10 +19,11 @@ export async function getPosts(
 export async function getPost(
   id: number,
   server = "dev.lemmy.ml",
+  jwt: string,
   sort: "Hot" | "Top" | "New" | "Old" = "Hot"
 ) {
   const apiBase = getBase(server);
-  const res = await fetch(apiBase + `/post?id=${id}&sort=${sort}`);
+  const res = await fetch(apiBase + `/post?id=${id}&sort=${sort}&auth=${jwt}`);
   return (await res.json()).post;
 }
 

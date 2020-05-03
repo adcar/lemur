@@ -9,6 +9,7 @@ const initialState: any = {
     name: "Hot",
   },
   server: "dev.lemmy.ml",
+  jwt: "",
 };
 
 const myArray: any = [initialState, () => {}];

@@ -21,7 +21,7 @@ export default function Login({ navigation }: any) {
         const jwt = await AsyncStorage.getItem("jwt");
         if (jwt !== null) {
           // We have data!!
-          onSuccess();
+          onSuccess(jwt);
         }
       } catch (error) {
         // Don't bother the user about this
@@ -51,7 +51,7 @@ export default function Login({ navigation }: any) {
       const { jwt } = json;
       try {
         await AsyncStorage.setItem("jwt", jwt);
-        onSuccess();
+        onSuccess(jwt);
       } catch (e) {
         showToast("Error (Couldn't set token): " + e);
       }
@@ -65,7 +65,8 @@ export default function Login({ navigation }: any) {
     AsyncStorage.setItem("@Prefs:server", server);
   }
 
-  function onSuccess() {
+  function onSuccess(jwt: string) {
+    dispatch({ type: "SET_JWT", payload: jwt });
     navigation.replace("Main");
   }
 

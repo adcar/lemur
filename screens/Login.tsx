@@ -114,6 +114,7 @@ export default function Login({ navigation }: any) {
       </View>
 
       <TextInput
+        autoCapitalize="none"
         returnKeyType="next"
         label="Username"
         value={username}

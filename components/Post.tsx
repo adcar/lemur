@@ -61,7 +61,7 @@ function Post(props: IProps) {
   const [state] = useContext(Context);
   // -1, 0, 1
   const [vote, setVote] = useState(props.my_vote);
-
+  const [prevVote, setPrevVote] = useState(props.my_vote);
   const [score, setScore] = useState(props.score);
 
   const toast = useRef();
@@ -148,6 +148,26 @@ function Post(props: IProps) {
         .catch(handleError);
     }
   }
+
+  function doVote(type: "UPVOTE" | "DOWNVOTE") {
+    setPrevVote(vote);
+    if (type === "UPVOTE" && vote !== 1) {
+      setVote(1);
+      setScore(score + 1);
+    } else if (type === "DOWNVOTE" && vote !== -1) {
+      setVote(-1);
+      setScore(score - 1);
+    } else {
+      setVote(0);
+      if (type === "DOWNVOTE") {
+        setScore(score + 1);
+      }
+      if (type === "UPVOTE") {
+        setScore(score - 1);
+      }
+    }
+  }
+
   let color;
   switch (vote) {
     case -1:
@@ -185,7 +205,7 @@ function Post(props: IProps) {
           >
             <IconButton
               icon="arrow-up-thick"
-              onPress={handleUpvote}
+              onPress={() => doVote("UPVOTE")}
               color={vote === 1 ? colors.primary : colors.text}
             />
             <Text
@@ -197,7 +217,7 @@ function Post(props: IProps) {
             </Text>
             <IconButton
               icon="arrow-down-thick"
-              onPress={handleDownvote}
+              onPress={() => doVote("DOWNVOTE")}
               color={vote === -1 ? colors.accent : colors.text}
             />
             <IconButton icon="star" />

@@ -1,4 +1,4 @@
-import React, { useContext,  useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import {
   Button,
@@ -58,10 +58,11 @@ const styles = StyleSheet.create({
 });
 
 function Post(props: IProps) {
-  const [state ] = useContext(Context);
-
+  const [state] = useContext(Context);
   // -1, 0, 1
   const [vote, setVote] = useState(props.my_vote);
+
+  const [score, setScore] = useState(props.score);
 
   const toast = useRef();
 

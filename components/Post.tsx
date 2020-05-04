@@ -86,7 +86,6 @@ function Post(props: IProps) {
         </>
       );
     } else if (thumbnail_url !== null) {
-      // TODO: Make this not hardcoded
       heading = (
         <TouchableOpacity onPress={openUrl} style={styles.row}>
           <Title style={styles.title}>{props.name}</Title>

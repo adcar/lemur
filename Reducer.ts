@@ -20,6 +20,11 @@ const Reducer = (state: any, action: IAction) => {
         ...state,
         jwt: action.payload,
       };
+    case "SET_TOAST_REF":
+      return {
+        ...state,
+        toast: action.payload
+      };
     default:
       return state;
   }

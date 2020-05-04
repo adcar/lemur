@@ -10,6 +10,7 @@ const initialState: any = {
   },
   server: "dev.lemmy.ml",
   jwt: "",
+  toast: null
 };
 
 const myArray: any = [initialState, () => {}];

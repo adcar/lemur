@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "react-native";
+import { Text } from "react-native-paper";
 import { withTheme } from "react-native-paper";
 
 interface IProps {
@@ -13,21 +14,20 @@ function Toast({ children, visible, theme }: IProps) {
   return (
     <View
       style={{
+        zIndex: 99500,
         display: "flex",
         opacity: visible ? 1 : 0,
-        transition: "all, ease-out, 0.5s",
         position: "absolute",
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        top: 20,
+        top: 0,
         left: 0,
       }}
     >
       <View
         style={{
           backgroundColor: colors.primary,
-          color: colors.text,
           paddingTop: 5,
           paddingBottom: 5,
           paddingLeft: 10,
@@ -35,7 +35,7 @@ function Toast({ children, visible, theme }: IProps) {
           borderRadius: 5,
         }}
       >
-        {children}
+        <Text>{children}</Text>
       </View>
     </View>
   );

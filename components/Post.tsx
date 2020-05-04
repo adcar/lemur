@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext,  useRef, useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import {
   Button,
@@ -12,6 +12,7 @@ import FitImage from "react-native-fit-image";
 import { Linking } from "expo";
 import { downvote, undovote, upvote } from "../api";
 import { Context } from "./Store";
+import Toast from "react-native-easy-toast";
 
 interface IProps {
   navigation: any;
@@ -57,12 +58,12 @@ const styles = StyleSheet.create({
 });
 
 function Post(props: IProps) {
-  const [state, dispatch] = useContext(Context);
+  const [state ] = useContext(Context);
 
   // -1, 0, 1
   const [vote, setVote] = useState(props.my_vote);
 
-  const [score, setScore] = useState(props.score);
+  const toast = useRef();
 
   const { colors } = props.theme;
   const { url, thumbnail_url } = props;
@@ -116,28 +117,35 @@ function Post(props: IProps) {
     );
   }
 
+  function handleError() {
+    state.toast.current.show("Network error occurred");
+  }
+
+  // TODO: refactor
   function handleUpvote() {
     if (vote === 1) {
       setVote(0);
-      undovote(props.id, state.jwt, state.server).then((scores) =>
-        setScore(scores.score + scores.my_vote)
-      );
+      undovote(props.id, state.jwt, state.server)
+        .then((scores) => setScore(scores.score + scores.my_vote))
+        .catch(handleError);
     } else {
       setVote(1);
-      upvote(props.id, state.jwt, state.server).then((scores) =>
-        setScore(scores.score + scores.my_vote)
-      );
+      upvote(props.id, state.jwt, state.server)
+        .then((scores) => setScore(scores.score + scores.my_vote))
+        .catch(handleError);
     }
   }
   function handleDownvote() {
     if (vote === -1) {
       setVote(0);
-      undovote(props.id, state.jwt, state.server).then((scores) =>
-        setScore(scores.score + scores.my_vote)
-      );
+      undovote(props.id, state.jwt, state.server)
+        .then((scores) => setScore(scores.score + scores.my_vote))
+        .catch(handleError);
     } else {
       setVote(-1);
-      downvote(props.id, state.jwt, state.server).then(console.log);
+      downvote(props.id, state.jwt, state.server)
+        .then((scores) => setScore(scores.score + scores.my_vote))
+        .catch(handleError);
     }
   }
   let color;
@@ -154,47 +162,50 @@ function Post(props: IProps) {
   }
 
   return (
-    <Card style={styles.root}>
-      {heading}
-      <Card.Actions>
-        <Button
-          icon="comment-multiple"
-          onPress={() =>
-            props.navigation.navigate("Comments", { id: props.id })
-          }
-        >
-          {props.number_of_comments} comments
-        </Button>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          <IconButton
-            icon="arrow-up-thick"
-            onPress={handleUpvote}
-            color={vote === 1 ? colors.primary : colors.text}
-          />
-          <Text
+    <>
+      <Toast ref={toast} />
+      <Card style={styles.root}>
+        {heading}
+        <Card.Actions>
+          <Button
+            icon="comment-multiple"
+            onPress={() =>
+              props.navigation.navigate("Comments", { id: props.id })
+            }
+          >
+            {props.number_of_comments} comments
+          </Button>
+          <View
             style={{
-              color,
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
             }}
           >
-            {score}
-          </Text>
-          <IconButton
-            icon="arrow-down-thick"
-            onPress={handleDownvote}
-            color={vote === -1 ? colors.accent : colors.text}
-          />
-          <IconButton icon="star" />
-          <IconButton icon="dots-vertical" />
-        </View>
-      </Card.Actions>
-    </Card>
+            <IconButton
+              icon="arrow-up-thick"
+              onPress={handleUpvote}
+              color={vote === 1 ? colors.primary : colors.text}
+            />
+            <Text
+              style={{
+                color,
+              }}
+            >
+              {score}
+            </Text>
+            <IconButton
+              icon="arrow-down-thick"
+              onPress={handleDownvote}
+              color={vote === -1 ? colors.accent : colors.text}
+            />
+            <IconButton icon="star" />
+            <IconButton icon="dots-vertical" />
+          </View>
+        </Card.Actions>
+      </Card>
+    </>
   );
 }
 

@@ -16,7 +16,6 @@ export default function Content() {
   const Stack = createStackNavigator();
   const toast = useRef(null);
   useEffect(() => {
-    console.log("dispatching: ", toast);
     dispatch({ type: "SET_TOAST_REF", payload: toast });
   }, []);
   return (

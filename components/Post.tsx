@@ -93,7 +93,7 @@ function Post(props: IProps) {
           <Image
             style={styles.image}
             source={{
-              uri: `https://dev.lemmy.ml/pictshare/${thumbnail_url}`,
+              uri: `https://${state.server}/pictshare/${thumbnail_url}`,
             }}
           />
         </TouchableOpacity>

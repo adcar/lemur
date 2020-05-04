@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import { Button, Card, Title, IconButton, Text } from "react-native-paper";
-
+import {
+  Button,
+  Card,
+  Title,
+  IconButton,
+  Text,
+  withTheme,
+} from "react-native-paper";
 import FitImage from "react-native-fit-image";
-
 import { Linking } from "expo";
+import { downvote, undovote, upvote } from "../api";
+import { Context } from "./Store";
 
 interface IProps {
   navigation: any;
+  theme: any;
 
   community_name: string;
   url: string | null;
@@ -23,6 +31,7 @@ interface IProps {
   local: boolean;
   saved: boolean;
   id: number;
+  my_vote: number;
 }
 
 const styles = StyleSheet.create({
@@ -46,9 +55,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default function Post(props: IProps) {
-  let heading;
 
+function Post(props: IProps) {
+  const [state, dispatch] = useContext(Context);
+
+  // -1, 0, 1
+  const [vote, setVote] = useState(props.my_vote);
+
+  const [score, setScore] = useState(props.score);
+
+  const { colors } = props.theme;
   const { url, thumbnail_url } = props;
 
   async function openUrl() {
@@ -56,7 +72,7 @@ export default function Post(props: IProps) {
       await Linking.openURL(url);
     }
   }
-
+  let heading;
   if (url !== null) {
     if (url.includes("pictshare")) {
       heading = (
@@ -100,6 +116,43 @@ export default function Post(props: IProps) {
     );
   }
 
+  function handleUpvote() {
+    if (vote === 1) {
+      setVote(0);
+      undovote(props.id, state.jwt, state.server).then((scores) =>
+        setScore(scores.score + scores.my_vote)
+      );
+    } else {
+      setVote(1);
+      upvote(props.id, state.jwt, state.server).then((scores) =>
+        setScore(scores.score + scores.my_vote)
+      );
+    }
+  }
+  function handleDownvote() {
+    if (vote === -1) {
+      setVote(0);
+      undovote(props.id, state.jwt, state.server).then((scores) =>
+        setScore(scores.score + scores.my_vote)
+      );
+    } else {
+      setVote(-1);
+      downvote(props.id, state.jwt, state.server).then(console.log);
+    }
+  }
+  let color;
+  switch (vote) {
+    case -1:
+      color = colors.accent;
+      break;
+    case 1:
+      color = colors.primary;
+      break;
+    case 0:
+    default:
+      color = colors.text;
+  }
+
   return (
     <Card style={styles.root}>
       {heading}
@@ -122,12 +175,20 @@ export default function Post(props: IProps) {
         >
           <IconButton
             icon="arrow-up-thick"
-            onPress={() => console.log("Pressed")}
+            onPress={handleUpvote}
+            color={vote === 1 ? colors.primary : colors.text}
           />
-          <Text>{props.score}</Text>
+          <Text
+            style={{
+              color,
+            }}
+          >
+            {score}
+          </Text>
           <IconButton
             icon="arrow-down-thick"
-            onPress={() => console.log("Pressed")}
+            onPress={handleDownvote}
+            color={vote === -1 ? colors.accent : colors.text}
           />
           <IconButton icon="star" />
           <IconButton icon="dots-vertical" />
@@ -136,3 +197,5 @@ export default function Post(props: IProps) {
     </Card>
   );
 }
+
+export default withTheme(Post);

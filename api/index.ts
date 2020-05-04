@@ -2,6 +2,11 @@ function getBase(server: string) {
   return `https://corsssssss.herokuapp.com/https://${server}/api/v1`;
 }
 
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
 export async function getPosts(
   jwt: string,
   type = "Subscribed",
@@ -36,13 +41,40 @@ export async function login(
   console.log("url" + apiBase + "/user/login");
   return await fetch(apiBase + "/user/login", {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify({
       username_or_email: username,
       password: password,
     }),
   });
+}
+
+export async function upvote(id: number, jwt: string, server: string) {
+  const { my_vote, score } = await vote(1, id, jwt, server);
+  return { my_vote, score };
+}
+
+export async function downvote(id: number, jwt: string, server: string) {
+  const { my_vote, score } = await vote(-1, id, jwt, server);
+  return { my_vote, score };
+}
+
+export async function undovote(id: number, jwt: string, server: string) {
+  const { my_vote, score } = await vote(0, id, jwt, server);
+  return { my_vote, score };
+}
+
+async function vote(vote: number, id: number, jwt: string, server: string) {
+  const apiBase = getBase(server);
+  const res = await fetch(apiBase + "/post/like", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      post_id: id,
+      score: vote,
+      auth: jwt,
+    }),
+  });
+
+  return (await res.json()).post;
 }

@@ -61,7 +61,6 @@ function Post(props: IProps) {
   const [state] = useContext(Context);
   // -1, 0, 1
   const [vote, setVote] = useState(props.my_vote);
-  const [prevVote, setPrevVote] = useState(props.my_vote);
   const [score, setScore] = useState(props.score);
 
   const toast = useRef();
@@ -117,53 +116,74 @@ function Post(props: IProps) {
     );
   }
 
-  function handleError() {
-    state.toast.current.show("Network error occurred");
-  }
-
-  // TODO: refactor
-  function handleUpvote() {
-    if (vote === 1) {
-      setVote(0);
-      undovote(props.id, state.jwt, state.server)
-        .then((scores) => setScore(scores.score + scores.my_vote))
-        .catch(handleError);
-    } else {
-      setVote(1);
-      upvote(props.id, state.jwt, state.server)
-        .then((scores) => setScore(scores.score + scores.my_vote))
-        .catch(handleError);
-    }
-  }
-  function handleDownvote() {
-    if (vote === -1) {
-      setVote(0);
-      undovote(props.id, state.jwt, state.server)
-        .then((scores) => setScore(scores.score + scores.my_vote))
-        .catch(handleError);
-    } else {
-      setVote(-1);
-      downvote(props.id, state.jwt, state.server)
-        .then((scores) => setScore(scores.score + scores.my_vote))
-        .catch(handleError);
-    }
-  }
-
   function doVote(type: "UPVOTE" | "DOWNVOTE") {
-    setPrevVote(vote);
-    if (type === "UPVOTE" && vote !== 1) {
+    if (type === "UPVOTE" && vote === 0) {
       setVote(1);
       setScore(score + 1);
-    } else if (type === "DOWNVOTE" && vote !== -1) {
+      upvote(props.id, state.jwt, state.server)
+        .then()
+        .catch(() => {
+          // Undo
+          state.toast.current.show("CNetwork error occurred: Couldn't upvote");
+          setScore(props.score);
+          setVote(0);
+        });
+    } else if (type === "UPVOTE" && vote === -1) {
+      setVote(1);
+      setScore(score + 2);
+      upvote(props.id, state.jwt, state.server)
+        .then()
+        .catch(() => {
+          // Undo
+          state.toast.current.show("Network error occurred");
+          setScore(props.score);
+          setVote(0);
+        });
+    } else if (type === "DOWNVOTE" && vote === 0) {
       setVote(-1);
       setScore(score - 1);
+      downvote(props.id, state.jwt, state.server)
+        .then()
+        .catch(() => {
+          state.toast.current.show("Network error occurred");
+          setScore(props.score);
+          setVote(0);
+        });
+    } else if (type === "DOWNVOTE" && vote === 1) {
+      setVote(-1);
+      setScore(score - 2);
+      downvote(props.id, state.jwt, state.server)
+        .then()
+        .catch(() => {
+          state.toast.current.show("Network error occurred");
+          setScore(props.score);
+          setVote(0);
+        });
     } else {
       setVote(0);
       if (type === "DOWNVOTE") {
         setScore(score + 1);
+        undovote(props.id, state.jwt, state.server)
+          .then()
+          .catch(() => {
+            state.toast.current.show(
+              "Network error occurred: Couldn't undo vote"
+            );
+            setScore(props.score);
+            setVote(-1);
+          });
       }
       if (type === "UPVOTE") {
         setScore(score - 1);
+        undovote(props.id, state.jwt, state.server)
+          .then()
+          .catch(() => {
+            state.toast.current.show(
+              "Network error occurred: Couldn't undo vote"
+            );
+            setScore(props.score);
+            setVote(1);
+          });
       }
     }
   }

@@ -31,7 +31,7 @@ export default function Start({navigation}:any) {
     }
 
     return (
-        <View style={{display: 'flex', justifyContent: 'center'}}>
+        <View style={{display: 'flex', alignItems:'center', paddingTop:'40%'}}>
             <Image style={{width: 100, height: 100}} source={require('../images/logo.png')
             }/>
         </View>

@@ -16,18 +16,6 @@ export default function Login({ navigation }: any) {
   const passwordRef = useRef(null);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const jwt = await AsyncStorage.getItem("jwt");
-        if (jwt !== null) {
-          // We have data!!
-          onSuccess(jwt);
-        }
-      } catch (error) {
-        // Don't bother the user about this
-        console.error(error);
-      }
-    })();
 
     (async () => {
       const server = await AsyncStorage.getItem("server");
@@ -69,6 +57,7 @@ export default function Login({ navigation }: any) {
     dispatch({ type: "SET_JWT", payload: jwt });
     navigation.replace("Main");
   }
+
 
   function showToast(message: string) {
     setVisible(true);

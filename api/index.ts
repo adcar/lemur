@@ -29,7 +29,7 @@ export async function getPost(
 ) {
   const apiBase = getBase(server);
   const res = await fetch(apiBase + `/post?id=${id}&sort=${sort}&auth=${jwt}`);
-  return (await res.json()).post;
+  return await res.json();
 }
 
 export async function login(

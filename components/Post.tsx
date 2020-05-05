@@ -212,8 +212,8 @@ function Post(props: IProps) {
             onPress={() =>
               props.navigation.navigate("Comments", { id: props.id })
             }
-          >
-            {props.number_of_comments} comments
+          ><Text style={{color:'#8e44ad', fontSize:12}}>
+            {props.number_of_comments} comments</Text>
           </Button>
           <View
             style={{

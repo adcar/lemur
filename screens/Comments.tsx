@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-
+import Comment from "../components/Comment";
+import { Text } from "react-native-paper";
 import CommentsAppbar from "../components/CommentsAppbar";
 import { getPost } from "../api";
 import { Context } from "../components/Store";
@@ -9,15 +10,20 @@ interface IProps {
   route: any;
 }
 
+interface CommentData {
+  data: any;
+  children: any[];
+}
+
 export default function Comments({ navigation, route }: IProps) {
   const { id } = route.params;
-  const [state, ] = useContext(Context);
-  const [comments, setComments] = useState(null);
+  const [state] = useContext(Context);
+  const initialState: CommentData[] | null = null;
+  const [comments, setComments] = useState(initialState);
 
   useEffect(() => {
     (async () => {
       const res = await getPost(id, state.server, state.jwt);
-      setComments(res.comments);
 
       let idsToChildren: idsToChildren = {};
 
@@ -46,7 +52,7 @@ export default function Comments({ navigation, route }: IProps) {
       function getChildren(index: number): any {
         if (indexesToChildren[index]) {
           return {
-            index,
+            data: res.comments[index],
             children: indexesToChildren[index].map((childIndex) =>
               getChildren(childIndex)
             ),
@@ -61,13 +67,27 @@ export default function Comments({ navigation, route }: IProps) {
         organizedComments.push(getChildren(index));
       });
 
-      console.log(organizedComments);
+      setComments(organizedComments);
     })();
   }, []);
 
   return (
     <>
       <CommentsAppbar navigation={navigation} />
+      {comments !== null ? (
+        ((comments as unknown) as CommentData[]).map((comment, index) => {
+          return (
+            <Comment
+              indent={0}
+              key={index}
+              data={comment.data}
+              children={comment.children}
+            />
+          );
+        })
+      ) : (
+        <Text>Loading comments...</Text>
+      )}
     </>
   );
 }

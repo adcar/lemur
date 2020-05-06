@@ -85,3 +85,11 @@ export async function followedCommunities(jwt: string, server: string) {
     const res = await fetch(apiBase + `/user/followed_communities?auth=${jwt}`);
     return (await res.json()).communities;
 }
+
+//community posts
+export async function getCommunity(jwt:String, server:string, id:any, name:string){
+    const apiBase = getBase(server);
+    const res = await fetch(apiBase+`/community?id=${id}&name=${name}&auth=${jwt}`);
+    return (await res.json());
+
+}

@@ -12,14 +12,23 @@ export async function getPosts(
     type = "Subscribed",
     page = 1,
     sort = "Hot",
-    server = "dev.lemmy.ml"
+    server = "dev.lemmy.ml",
+    id?:number
 ) {
     const apiBase = getBase(server);
-    const res = await fetch(
-        apiBase + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`
-    );
+    let res;
+    if (type==="Community"){
+        res = await fetch(apiBase+`/post/list?type_=Community&sort=${sort}&community_id=${id}&page=${page}&auth=${jwt}`);
+    }
+    else {
+        res = await fetch(
+            apiBase + `/post/list?type_=${type}&auth=${jwt}&page=${page}&sort=${sort}`
+        );
+    }
     return (await res.json()).posts;
 }
+
+
 
 export async function getPost(
     id: number,
@@ -86,10 +95,12 @@ export async function followedCommunities(jwt: string, server: string) {
     return (await res.json()).communities;
 }
 
-//community posts
-export async function getCommunity(jwt:String, server:string, id:any, name:string){
+//community details
+export async function getCommunity(jwt:string, server:string, id:any, name:string){
     const apiBase = getBase(server);
     const res = await fetch(apiBase+`/community?id=${id}&name=${name}&auth=${jwt}`);
     return (await res.json());
 
 }
+
+

@@ -1,26 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import {Context} from "../components/Store";
-import {getCommunity} from "../api";
+import {getCommunity, communityPosts} from "../api";
+import Posts from "../components/Posts"
+
 
 
 export default function CommmunityPage({navigation, route}:any){
     const {id} = route.params;
     const {name} = route.params;
     const [state] = useContext(Context);
-    let [post, setPost] = useState([]);
+    let [communityInfo, setCommunityInfo] = useState([]);
 
     useEffect(() => {
         (async () => {
-            const post = await getCommunity(
+            communityInfo = await getCommunity(
                 state.jwt,
                 state.server,
                 id,
                 name
             );
-            setPost(post);
-            console.log(post);
+            setCommunityInfo(communityInfo);
         })();
+
+
+
     }, [state]);
-    return(<View><Text>hello</Text></View>)
+    return(<Posts
+    navigation={navigation}
+    type="Community"
+    id={id}/>)
 }

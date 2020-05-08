@@ -8,7 +8,7 @@ import Constants from "expo-constants";
 
 export default function SearchCommunities({navigation}: any) {
     const [state] = useContext(Context);
-    let [communities, setCommunities] = useState([]);
+    let [communities, setCommunities]: [any, any] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState([]);
 
@@ -26,9 +26,9 @@ export default function SearchCommunities({navigation}: any) {
 
 
     function search(text: string) {
-        let newlist = [];
+        let newlist: any = [];
         const regex = new RegExp(text, "i");
-        communities.map((community, index) => {
+        communities.map((community: any, index: number) => {
             if (regex.test(community.community_name)) {
                 newlist.push(community);
             }
@@ -54,7 +54,7 @@ export default function SearchCommunities({navigation}: any) {
 
             </Appbar>
             <List.Section>
-                {results.map((community, index) => (
+                {results.map((community: any, index) => (
                     <List.Item
                         style={{backgroundColor: '#272727', marginTop: 7}}
                         title={community.community_name}

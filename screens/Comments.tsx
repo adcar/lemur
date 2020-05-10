@@ -4,6 +4,7 @@ import { Text } from "react-native-paper";
 import CommentsAppbar from "../components/CommentsAppbar";
 import { getPost } from "../api";
 import { Context } from "../components/Store";
+import { ScrollView } from "react-native";
 
 interface IProps {
   navigation: any;
@@ -74,20 +75,22 @@ export default function Comments({ navigation, route }: IProps) {
   return (
     <>
       <CommentsAppbar navigation={navigation} />
-      {comments !== null ? (
-        ((comments as unknown) as CommentData[]).map((comment, index) => {
-          return (
-            <Comment
-              indent={0}
-              key={index}
-              data={comment.data}
-              children={comment.children}
-            />
-          );
-        })
-      ) : (
-        <Text>Loading comments...</Text>
-      )}
+      <ScrollView>
+        {comments !== null ? (
+          ((comments as unknown) as CommentData[]).map((comment, index) => {
+            return (
+              <Comment
+                indent={0}
+                key={index}
+                data={comment.data}
+                children={comment.children}
+              />
+            );
+          })
+        ) : (
+          <Text>Loading comments...</Text>
+        )}
+      </ScrollView>
     </>
   );
 }

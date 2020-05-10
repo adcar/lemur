@@ -13,7 +13,7 @@ export default function MyAppBar({ navigation }: any) {
   const [dotsMenuVisible, setDotsMenuVisible] = useState(false);
   const [state, dispatch] = useContext(Context);
   function handleSortChange(sort: ISort) {
-    console.log("Sort change: " + sort);
+    console.log("Sort change: " + JSON.stringify(sort));
     dispatch({ type: "SET_SORT", payload: sort });
     setSortMenuVisible(false);
   }

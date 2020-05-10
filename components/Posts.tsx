@@ -23,7 +23,7 @@ export default function Posts(props: IProps) {
       const posts = await getPosts(
         state.jwt,
         props.type,
-        page,
+        1,
         state.sort.name,
         state.server,
         props.id

@@ -88,6 +88,19 @@ async function vote(vote: number, id: number, jwt: string, server: string) {
     return (await res.json()).post;
 }
 
+export async function subscribeToCommunity(jwt:string, server:string, id:number, follow:boolean){
+    const apiBase = getBase(server);
+    await fetch(apiBase+"/community/follow",{
+        method:"POST",
+        headers,
+        body: JSON.stringify({
+            community_id: id,
+            follow: follow,
+            auth:jwt,
+        }),
+    })
+}
+
 //returns a list of communities the user follows
 export async function followedCommunities(jwt: string, server: string) {
     const apiBase = getBase(server);

@@ -1,11 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
-import Appbar from "./PostsAppbar";
+import CommunityHeader from "./CommunityHeader";
 import Post from "./Post";
 import { getPosts } from "../api";
 import { Context } from "./Store";
 
-export default function Posts(props:any) {
+interface IProps{
+    navigation: any
+    type: string
+    id: number
+    name:string
+}
+
+export default function Posts(props:IProps) {
     const [state] = useContext(Context);
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
@@ -52,7 +59,6 @@ export default function Posts(props:any) {
                 flex: 1,
             }}
         >
-            <Appbar navigation={props.navigation} />
             <FlatList
                 contentContainerStyle={{}}
                 data={posts}
@@ -61,6 +67,7 @@ export default function Posts(props:any) {
                     return <Post {...item} navigation={props.navigation} />;
                 }}
                 refreshing={true}
+                ListHeaderComponent= {props.type==="Community"?<CommunityHeader name={props.name} id={props.id}/>:null}
                 onEndReachedThreshold={0.99}
                 onEndReached={onLoadMore}
                 keyExtractor={(item) => {
